@@ -52,15 +52,10 @@ CREATE TABLE ANALYSIS
 
 CREATE TABLE REVIEW
 (
-  status INT NOT NULL,
+  status INT NOT NULL CHECK (status in (0, 1, 2)),
   issueId INT NOT NULL,
   analysisId INT NOT NULL,
   PRIMARY KEY (issueId, analysisId),
   FOREIGN KEY (issueId) REFERENCES ISSUE(issueId),
   FOREIGN KEY (analysisId) REFERENCES ANALYSIS(analysisId)
 );
-
-ALTER TABLE REVIEW 
-	ADD CONSTRAINT status_review CHECK (
-		status IN (0, 1, 2)
-	)
