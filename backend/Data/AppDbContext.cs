@@ -5,13 +5,13 @@ using backend.Models;
 
 namespace backend.Data;
 
-public partial class DbContext : DbContext
+public partial class AppDbContext : DbContext
 {
-    public DbContext()
+    public AppDbContext()
     {
     }
 
-    public DbContext(DbContextOptions<DbContext> options)
+    public AppDbContext(DbContextOptions<AppDbContext> options)
         : base(options)
     {
     }
