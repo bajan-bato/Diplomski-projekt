@@ -15,7 +15,7 @@ def get_suggestions():
     data = fetch('https://data.gov.hr/Suggestions/selectAllRow')['root']
     ret = []
     for d in data:
-        if not d['datasetId'] or d['text'].strip() = "":
+        if not d['datasetId'] or d['text'].strip() == "":
             continue
         ret.append({
             'suggestionId'  :   d['suggestionId'] + d['userId'] * 1000,
