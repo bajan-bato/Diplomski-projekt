@@ -28,9 +28,6 @@ public partial class AppDbContext : DbContext
 
     public virtual DbSet<Suggestion> Suggestions { get; set; }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseNpgsql("Host=localhost;Port=5433;Database=;Username=;Password=");
-
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Analysis>(entity =>
