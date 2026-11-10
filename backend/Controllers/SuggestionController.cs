@@ -1,12 +1,13 @@
 ﻿using System;
 using backend.Data;
+using backend.Mappers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace backend.Controllers
 {
-    [ApiController]
     [Route("api/[controller]")]
+    [ApiController]
     public class SuggestionController : ControllerBase
     {
         private readonly AppDbContext ctx;
@@ -17,17 +18,17 @@ namespace backend.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> GetAllSuggestions()
         {
-            var suggestions = await ctx.Suggestions.ToListAsync();
+            var suggestions = await ctx.Suggestions.Select(s => s.ToSuggestionDTO()).ToListAsync();
 
             return Ok(suggestions);
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> Get(int id)
+        public async Task<IActionResult> GetSuggestionById(int id)
         {
-            var suggestion = await ctx.Suggestions.FindAsync(id);
+            var suggestion = await ctx.Suggestions.Where(s => s.Suggestionid == id).Select(s => s.ToSuggestionDTO()).FirstOrDefaultAsync();
 
             if (suggestion == null)
             {
