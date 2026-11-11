@@ -1,0 +1,40 @@
+<section class="page">
+  <header class="page__header">
+    <p><a routerLink="/packages">&larr; Natrag na pakete</a></p>
+
+    @if (pkg(); as p) {
+      <h2>{{ p.title }}</h2>
+    } @else {
+      <h2>Prijedlozi</h2>
+    }
+  </header>
+
+  @if (loading()) {
+    <p class="state-message" role="status">Učitavanje prijedloga…</p>
+  } @else if (notFound()) {
+    <div class="state-message state-message--error" role="alert">
+      <p>Paket nije pronađen.</p>
+      <a class="btn" routerLink="/packages">Natrag na pakete</a>
+    </div>
+  } @else if (error()) {
+    <div class="state-message state-message--error" role="alert">
+      <p>{{ error() }}</p>
+    </div>
+  } @else if (suggestions().length === 0) {
+    <p class="state-message">Ovaj paket nema prijedloga.</p>
+  } @else {
+    <ul class="card-list">
+      @for (suggestion of suggestions(); track suggestion.suggestionId) {
+        <li>
+          <a class="card" [routerLink]="['/suggestions', suggestion.suggestionId]">
+            <p class="card__meta">
+              #{{ suggestion.suggestionId }} &middot;
+              {{ suggestion.datetime | date: 'dd.MM.yyyy. HH:mm' }}
+            </p>
+            <h3 class="card__title">{{ suggestion.title }}</h3>
+          </a>
+        </li>
+      }
+    </ul>
+  }
+</section>

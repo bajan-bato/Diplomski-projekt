@@ -1,0 +1,28 @@
+<section class="page">
+  <header class="page__header">
+    <h2>Paketi</h2>
+  </header>
+
+  @if (loading()) {
+    <p class="state-message" role="status">Učitavanje paketa…</p>
+  } @else if (error()) {
+    <div class="state-message state-message--error" role="alert">
+      <p>{{ error() }}</p>
+      <button type="button" class="btn" (click)="retry()">Pokušaj ponovno</button>
+    </div>
+  } @else if (packages()!.length === 0) {
+    <p class="state-message">Nema dostupnih paketa.</p>
+  } @else {
+    <ul class="card-list">
+      @for (pkg of packages(); track pkg.packageId) {
+        <li>
+          <a class="card" [routerLink]="['/packages', pkg.packageId, 'suggestions']">
+            <p class="card__meta">{{ pkg.packageId }}</p>
+            <h3 class="card__title">{{ pkg.title }}</h3>
+            <p class="card__description">{{ pkg.description }}</p>
+          </a>
+        </li>
+      }
+    </ul>
+  }
+</section>

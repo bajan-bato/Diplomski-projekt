@@ -1,0 +1,88 @@
+<section class="page">
+  @if (suggestion(); as s) {
+    <p><a [routerLink]="['/packages', s.packageId, 'suggestions']">&larr; Natrag na prijedloge</a></p>
+  } @else {
+    <p><a routerLink="/packages">&larr; Natrag na pakete</a></p>
+  }
+
+  @if (loading()) {
+    <p class="state-message" role="status">Učitavanje prijedloga…</p>
+  } @else if (notFound()) {
+    <div class="state-message state-message--error" role="alert">
+      <p>Prijedlog nije pronađen.</p>
+      <a class="btn" routerLink="/packages">Natrag na pakete</a>
+    </div>
+  } @else if (error()) {
+    <div class="state-message state-message--error" role="alert">
+      <p>{{ error() }}</p>
+    </div>
+  } @else {
+    <header class="package-heading">
+      <h2 class="package-heading__title">{{ pkg()?.title }}</h2>
+      @if (pkg()?.url) {
+        <a
+          class="package-heading__url"
+          [href]="pkg()!.url"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {{ pkg()!.url }}
+        </a>
+      }
+    </header>
+
+    <section class="panel">
+      <h3>Prijedlog</h3>
+      <p class="suggestion-text">{{ suggestion()?.text }}</p>
+    </section>
+
+    <div class="analysis-strip">
+      @if (currentAnalysis(); as analysis) {
+        <button
+          type="button"
+          class="btn btn--icon"
+          [disabled]="analysis.idPrev === null || loadingAnalysisNav()"
+          (click)="navigate('prev')"
+          aria-label="Prethodna analiza"
+        >
+          &larr;
+        </button>
+        <span class="analysis-strip__label">Analiza #{{ analysis.analysisId }}</span>
+        <button
+          type="button"
+          class="btn btn--icon"
+          [disabled]="analysis.idNext === null || loadingAnalysisNav()"
+          (click)="navigate('next')"
+          aria-label="Sljedeća analiza"
+        >
+          &rarr;
+        </button>
+        @if (loadingAnalysisNav()) {
+          <span class="analysis-strip__status" role="status">Učitavanje…</span>
+        }
+      } @else if (noAnalyses()) {
+        <span class="analysis-strip__label">Nema dostupnih analiza</span>
+      }
+    </div>
+
+    @if (analysisNavError()) {
+      <p class="state-message state-message--error" role="alert">{{ analysisNavError() }}</p>
+    }
+
+    <section class="panel">
+      <h3>Natuknice</h3>
+      @if (issues().length === 0) {
+        <p class="state-message">Ovaj prijedlog nema natuknica.</p>
+      } @else {
+        <ul class="issue-list">
+          @for (issue of issues(); track issue.issueId) {
+            <li class="issue-list__item">
+              <span class="issue-list__text">{{ issue.text }}</span>
+              <app-status-label [status]="reviewStatusFor(issue.issueId)" />
+            </li>
+          }
+        </ul>
+      }
+    </section>
+  }
+</section>

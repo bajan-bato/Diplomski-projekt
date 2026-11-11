@@ -1,0 +1,37 @@
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border: 1px solid currentcolor;
+  white-space: nowrap;
+}
+
+.status__icon {
+  font-weight: 700;
+}
+
+.status--fixed {
+  color: var(--status-fixed);
+  background: color-mix(in srgb, var(--status-fixed) 12%, white);
+}
+
+.status--unfixed {
+  color: var(--status-unfixed);
+  background: color-mix(in srgb, var(--status-unfixed) 12%, white);
+}
+
+.status--unknown {
+  color: var(--status-unknown);
+  background: color-mix(in srgb, var(--status-unknown) 12%, white);
+}
+
+.status--unavailable {
+  color: var(--status-unavailable);
+  background: color-mix(in srgb, var(--status-unavailable) 10%, white);
+  font-style: italic;
+  font-weight: 500;
+}
