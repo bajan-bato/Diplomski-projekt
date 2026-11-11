@@ -1,0 +1,182 @@
+[
+  {
+    "suggestion_id": 4083144,
+    "package_id": "159cb624-ec97-4c93-a48d-69c1535094d8",
+    "title": "generalne zamjerke",
+    "fmt": "csv",
+    "len": "medium",
+    "chars": 517,
+    "year": "2025"
+  },
+  {
+    "suggestion_id": 5413622,
+    "package_id": "b0529b3f-3275-40f7-b711-b014304d506a",
+    "title": "Prijedlog za proširenje skupa podataka",
+    "fmt": "csv",
+    "len": "long",
+    "chars": 1408,
+    "year": "2026"
+  },
+  {
+    "suggestion_id": 3060389,
+    "package_id": "b39fd4f9-2e89-4777-bc23-e0d87193ae46",
+    "title": "Registar prijava za priznanje prava korištenja oznaka zemljopisnog podrijetla",
+    "fmt": "csv",
+    "len": "short",
+    "chars": 77,
+    "year": "2024"
+  },
+  {
+    "suggestion_id": 4070452,
+    "package_id": "4f927a36-4bf3-4cbd-88f8-209365dabf7b",
+    "title": "Unapređenje skupa podataka",
+    "fmt": "csv",
+    "len": "very_long",
+    "chars": 4342,
+    "year": "2025"
+  },
+  {
+    "suggestion_id": 2777081,
+    "package_id": "8312d8a1-b28e-4a1d-8b46-6fd426d37a81",
+    "title": "Prjedlog za poboljšanje skupa: Geoportal pješačka zona",
+    "fmt": "csv",
+    "len": "medium",
+    "chars": 369,
+    "year": "2024"
+  },
+  {
+    "suggestion_id": 5385172,
+    "package_id": "2eea1a6e-49da-4742-a79a-77a019cf60e9",
+    "title": "Analiza i prijedlozi za skup podataka",
+    "fmt": "csv",
+    "len": "long",
+    "chars": 1164,
+    "year": "2026"
+  },
+  {
+    "suggestion_id": 4090152,
+    "package_id": "94b4de43-d8e6-462b-a7a1-93734222e992",
+    "title": "Prijedlog poboljšanja",
+    "fmt": "excel",
+    "len": "medium",
+    "chars": 609,
+    "year": "2025"
+  },
+  {
+    "suggestion_id": 5861208,
+    "package_id": "f33069f3-3775-4b3f-abab-57429b63318d",
+    "title": "Podaci o poslovnim prostorima u vlasništvu Općine Drnje",
+    "fmt": "excel",
+    "len": "short",
+    "chars": 60,
+    "year": "2026"
+  },
+  {
+    "suggestion_id": 2811171,
+    "package_id": "d775d468-56b2-4970-b38c-8128052f2391",
+    "title": "Unaprjeđenje skupa Ljekarne Grada Zagreba",
+    "fmt": "excel",
+    "len": "long",
+    "chars": 1085,
+    "year": "2024"
+  },
+  {
+    "suggestion_id": 4039408,
+    "package_id": "e9e7b65a-a701-4f08-8fc3-faf6a0f69326",
+    "title": "Prijedlog za unaprjeđenje registra ugovora",
+    "fmt": "excel",
+    "len": "very_long",
+    "chars": 3132,
+    "year": "2025"
+  },
+  {
+    "suggestion_id": 2831245,
+    "package_id": "80cf773e-da5c-41c3-91be-fd8fbe7dd688",
+    "title": "Poboljšanje strojne čitljivosti",
+    "fmt": "excel",
+    "len": "medium",
+    "chars": 200,
+    "year": "2024"
+  },
+  {
+    "suggestion_id": 5458652,
+    "package_id": "369e8b66-f59f-4b22-9ceb-8c828e3f4064",
+    "title": "Prijedlog za unaprjeđenje formata i reprezentacije podataka",
+    "fmt": "excel",
+    "len": "long",
+    "chars": 825,
+    "year": "2026"
+  },
+  {
+    "suggestion_id": 4093158,
+    "package_id": "84c1ca4b-7a59-41b0-a6a6-49c89086af30",
+    "title": "Prijedlog odvojiti mjesto od ulice u skupu podataka",
+    "fmt": "excel",
+    "len": "short",
+    "chars": 132,
+    "year": "2025"
+  },
+  {
+    "suggestion_id": 5463642,
+    "package_id": "28681055-acfb-432a-9a19-bca48e5a66f3",
+    "title": "Prijedlog unaprijeđenja",
+    "fmt": "excel",
+    "len": "very_long",
+    "chars": 3212,
+    "year": "2026"
+  },
+  {
+    "suggestion_id": 2825214,
+    "package_id": "74deace1-2758-4be6-aeb5-1593bbd3f9ac",
+    "title": "Općenito unaprjeđenje skupa podataka",
+    "fmt": "excel",
+    "len": "long",
+    "chars": 1395,
+    "year": "2024"
+  },
+  {
+    "suggestion_id": 5470685,
+    "package_id": "d0886c88-cdc8-43fa-ac94-67a8d128d0c2",
+    "title": "Standardizirati nedostajuće vrijednosti u JSON-u i provjeriti duplikat/nečiste vrijednosti (ID 43–47)",
+    "fmt": "geo",
+    "len": "medium",
+    "chars": 564,
+    "year": "2026"
+  },
+  {
+    "suggestion_id": 2840375,
+    "package_id": "07410805-eb85-4ad7-ad9f-389ec20b2f58",
+    "title": "Dopuna metapodataka, poboljšanje kvalitete i konzistentnosti podataka",
+    "fmt": "json_xml",
+    "len": "long",
+    "chars": 1611,
+    "year": "2024"
+  },
+  {
+    "suggestion_id": 4056416,
+    "package_id": "269ac409-e7d7-4a68-89a3-ac3b1a0cce1f",
+    "title": "Prijedlog za unaprjeđenje: Prijedlog za unaprjeđenje",
+    "fmt": "json_xml",
+    "len": "medium",
+    "chars": 749,
+    "year": "2025"
+  },
+  {
+    "suggestion_id": 4039404,
+    "package_id": "99eb84dd-4731-4207-8d59-c5938f02b579",
+    "title": "Prijedlog za unaprjeđenje i ažuriranje podataka",
+    "fmt": "other",
+    "len": "long",
+    "chars": 1993,
+    "year": "2025"
+  },
+  {
+    "suggestion_id": 5456182,
+    "package_id": "ec1171d7-af4f-496c-b3da-6a5774388513",
+    "title": "Ispravak pristupa podatcima",
+    "fmt": "other",
+    "len": "medium",
+    "chars": 505,
+    "year": "2026"
+  }
+]

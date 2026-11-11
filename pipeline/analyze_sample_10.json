@@ -1,0 +1,72 @@
+[
+  {
+    "package_id": "089c5d0c-cff0-406d-9616-d795f2b29b9f",
+    "title": "Geoportal biciklističke staze",
+    "issues": 12,
+    "fmt": "csv",
+    "size": "8+"
+  },
+  {
+    "package_id": "c4a8ea9c-65c6-4938-8576-02fb92f774de",
+    "title": "Izvješće o provedbi Zakona o pravu na pristup informacijama za 2024. godinu",
+    "issues": 5,
+    "fmt": "csv",
+    "size": "4-7"
+  },
+  {
+    "package_id": "2ddec823-02f4-40fd-8b1c-c2546e3162e6",
+    "title": "Popis primarne dodjele numeracija operatora elektroničkih komunikacija",
+    "issues": 2,
+    "fmt": "csv",
+    "size": "1-3"
+  },
+  {
+    "package_id": "bddd8d6b-7976-411b-90c0-c8ea4b8a1973",
+    "title": "Sportski klubovi i udruge na području Grada Hvara",
+    "issues": 5,
+    "fmt": "excel",
+    "size": "4-7"
+  },
+  {
+    "package_id": "d070dc1f-c29d-487e-92ea-baf53d15ab6e",
+    "title": "Veterinarstvo",
+    "issues": 3,
+    "fmt": "excel",
+    "size": "1-3"
+  },
+  {
+    "package_id": "bbdab38f-fbcf-413b-a6b4-131250ee7617",
+    "title": "raspored_sjednica_vlade_od_sijecnja_do_lipnja_2021",
+    "issues": 9,
+    "fmt": "excel",
+    "size": "8+"
+  },
+  {
+    "package_id": "66ce98ae-1cd6-40ab-a5f1-369f68fc18de",
+    "title": "Nacionalni popis šumskih sjemenskih objekata",
+    "issues": 2,
+    "fmt": "excel",
+    "size": "1-3"
+  },
+  {
+    "package_id": "d0886c88-cdc8-43fa-ac94-67a8d128d0c2",
+    "title": "Geoportal Željeznička stajališta HŽ",
+    "issues": 3,
+    "fmt": "geo",
+    "size": "1-3"
+  },
+  {
+    "package_id": "f6d5abb5-1277-477f-b18f-6f29be15c329",
+    "title": "Slobodna radna mjesta po županijama u Hrvatskoj i u Europskoj uniji",
+    "issues": 6,
+    "fmt": "json_xml",
+    "size": "4-7"
+  },
+  {
+    "package_id": "7b667f10-60c3-40d9-b597-908d31878714",
+    "title": "Poljoprivredno tržište RH (TISUP)",
+    "issues": 4,
+    "fmt": "other",
+    "size": "4-7"
+  }
+]

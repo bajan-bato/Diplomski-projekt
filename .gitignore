@@ -2,3 +2,13 @@
 
 **/bin/
 **/obj/
+
+# Tajne i lokalna okruzenja
+.env
+.venv/
+__pycache__/
+*.pyc
+
+# Cache i izlazi AI pipelinea
+pipeline/cache/
+pipeline/output/
