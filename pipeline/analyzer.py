@@ -8,6 +8,7 @@ Za svaku natuknicu zabiljezi presudu alatom record_verdict:
 Konzervativna eskalacija: status 2 s razlogom ambiguous_evidence / tool_error / budget_exhausted,
 na SPECIFICNOJ natuknici, uz barem jedan uspjesno ucitan resurs -> jos jednom Sonnet 5.5 (konacno).
 Rezultat: jedan ANALYSIS po paketu + REVIEW po natuknici (status, explanation, evidence).
+ANALYSIS.idPrev/idNext povezuju analize ISTOG paketa kroz vrijeme (prva analiza paketa nema idPrev).
 """
 import json
 import re
@@ -259,7 +260,12 @@ def should_escalate(verdict: dict, issue: dict, store: ResourceStore) -> bool:
 def save_analysis(pkg: dict, verdicts: dict) -> int:
     with db.transaction() as conn:
         aid = db.next_id(conn, "ANALYSIS", "analysisId")
-        prev = db.execute(conn, "SELECT MAX(analysisId) FROM ANALYSIS").scalar()
+        # prethodna analiza ISTOG paketa (lanac idPrev/idNext je po paketu, ne globalan)
+        prev = db.execute(conn, """
+            SELECT MAX(r.analysisId) FROM REVIEW r
+            JOIN ISSUE i ON i.issueId = r.issueId
+            JOIN SUGGESTION s ON s.suggestionId = i.suggestionId
+            WHERE s.packageId = :p""", p=pkg["package_id"]).scalar()
         db.execute(conn, "INSERT INTO ANALYSIS(analysisId, datetime, idPrev, idNext) VALUES (:a, :d, :p, NULL)",
                    a=aid, d=datetime.now().replace(microsecond=0), p=prev)
         if prev:
@@ -284,11 +290,35 @@ def reset_all(log=print) -> None:
 
 # ---------- glavna funkcija ----------
 
-def analyze(package_ids: list[str], escalate: bool = True, log=print) -> list[dict]:
+def pending_packages() -> list[str]:
+    """Paketi koji imaju barem jednu natuknicu bez ijednog REVIEW-a (za --all i nastavak nakon prekida)."""
+    return [r["package_id"] for r in db.rows(
+        """SELECT s.packageId AS package_id
+           FROM ISSUE i JOIN SUGGESTION s ON s.suggestionId = i.suggestionId
+           JOIN PACKAGE p ON p.packageId = s.packageId
+           WHERE NOT EXISTS (SELECT 1 FROM REVIEW r WHERE r.issueId = i.issueId)
+           GROUP BY s.packageId ORDER BY s.packageId""")]
+
+
+def analyze(package_ids: list[str], escalate: bool = True, max_cost: float | None = None, log=print) -> list[dict]:
+    records = []
+    try:
+        _analyze_loop(package_ids, escalate, max_cost, log, records)
+    except KeyboardInterrupt:
+        log("Prekinuto (Ctrl+C). Analizirani paketi su spremljeni; ponovno pokretanje s --all nastavlja dalje.")
+    log(f"Ukupni trosak analize: ${sum(r['cost'] for r in records):.4f}")
+    return records
+
+
+def _analyze_loop(package_ids, escalate, max_cost, log, records) -> None:
     client = anthropic.Anthropic()
     escalations_left = config.ESCALATION_MAX_PER_RUN if escalate else 0
-    records = []
     for n, pid in enumerate(package_ids, 1):
+        spent = sum(r["cost"] for r in records)
+        if max_cost is not None and spent >= max_cost:
+            log(f"Dosegnut limit troska ${max_cost:.2f} (potroseno ${spent:.4f}); zaustavljam. "
+                f"Ponovno pokretanje nastavlja s neanaliziranim paketima.")
+            break
         pkg = load_package(pid)
         if not pkg["issues"]:
             log(f"[{n}/{len(package_ids)}] {pkg['title']}: nema natuknica, preskacem")
@@ -332,5 +362,3 @@ def analyze(package_ids: list[str], escalate: bool = True, log=print) -> list[di
         records.append({"package": pkg, "verdicts": verdicts, "analysis_id": aid, "cost": cost,
                         "calls": calls, "escalated": [it["issue_id"] for it in to_escalate],
                         "load_errors": {rid: e["error"] for rid, e in store.loaded.items() if "error" in e}})
-    log(f"Ukupni trosak analize: ${sum(r['cost'] for r in records):.4f}")
-    return records

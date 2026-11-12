@@ -11,6 +11,12 @@ Primjeri (iz korijena repoa):
 """
 import argparse
 import sys
+import warnings
+
+# Bezopasna upozorenja biblioteka (regex u agentovim pandas upitima, Excel zaglavlja/podnozja) - samo zagaduju log
+warnings.filterwarnings("ignore", message="This pattern is interpreted as a regular expression")
+warnings.filterwarnings("ignore", message="Cannot parse header or footer")
+warnings.filterwarnings("ignore", category=UserWarning, module="openpyxl")
 
 from . import config, db, extractor, report, sample
 
@@ -72,6 +78,10 @@ def cmd_analyze(args):
     if args.sample:
         import json
         ids = [p["package_id"] for p in json.loads(ANALYZE_SAMPLE_PATH.read_text(encoding="utf-8"))]
+    elif args.all:
+        ids = analyzer.pending_packages()
+        if args.limit:
+            ids = ids[: args.limit]
     else:
         ids = args.packages
     n_issues = sum(db.scalar("""SELECT COUNT(*) FROM ISSUE i JOIN SUGGESTION s ON s.suggestionId = i.suggestionId
@@ -83,9 +93,11 @@ def cmd_analyze(args):
           f"{config.ESCALATION_MAX_PER_RUN if not args.no_escalation else 0}) | baza: {config.DATABASE_URL}")
     print(f"{len(ids)} paketa, {n_issues} natuknica | procjena Haiku: ~${est:.2f} (bez cachea, gornja granica) "
           f"+ eskalacije ~$0.05-0.10 po natuknici")
+    if args.max_cost is not None:
+        print(f"Limit troska za ovo pokretanje: ${args.max_cost:.2f}")
     if args.dry_run:
         return
-    records = analyzer.analyze(ids, escalate=not args.no_escalation)
+    records = analyzer.analyze(ids, escalate=not args.no_escalation, max_cost=args.max_cost)
     if records:
         path = report.write_analyze_report(records)
         print(f"Izvjestaj: {path.relative_to(config.ROOT)}")
@@ -130,6 +142,9 @@ def main(argv=None):
     srcp = pa.add_mutually_exclusive_group(required=True)
     srcp.add_argument("--sample", action="store_true", help=f"koristi {ANALYZE_SAMPLE_PATH.name}")
     srcp.add_argument("--packages", nargs="+")
+    srcp.add_argument("--all", action="store_true", help="svi paketi s jos neanaliziranim natuknicama")
+    pa.add_argument("--limit", type=int, help="najvise N paketa (uz --all)")
+    pa.add_argument("--max-cost", type=float, help="zaustavi kad trosak ovog pokretanja dosegne iznos ($)")
     pa.add_argument("--no-escalation", action="store_true")
     pa.add_argument("--dry-run", action="store_true")
     pa.set_defaults(func=cmd_analyze)
