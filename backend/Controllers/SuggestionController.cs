@@ -37,5 +37,16 @@ namespace backend.Controllers
 
             return Ok(suggestion);
         }
+
+        [HttpGet("package/{packageId}")]
+        public async Task<IActionResult> GetSuggestionsByPackageId(string packageId)
+        {
+            var suggestions = await ctx.Suggestions
+                .Where(s => s.Packageid == packageId)
+                .Select(s => s.ToSuggestionDTO())
+                .ToListAsync();
+
+            return Ok(suggestions);
+        }
     }
 }
